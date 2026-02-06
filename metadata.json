@@ -1,0 +1,7 @@
+{
+  "name": "Alsafa Homeopathic Clinic",
+  "description": "A calm, professional, and nature-inspired website for a homeopathic clinic focusing on personalized patient care and easy appointment booking via WhatsApp and Phone.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
