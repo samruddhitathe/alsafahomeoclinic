@@ -32,13 +32,13 @@ export const DOCTORS = [
   {
     name: DOCTOR_1_NAME,
     qual: DOCTOR_QUAL,
-    image: "/Assets/Dr.shakir.jpeg",
+    image: "dist\assets\Dr.shakir.jpeg",
     philosophy: "Focusing on deep-acting constitutional remedies to restore the vital force and achieve permanent recovery."
   },
   {
     name: DOCTOR_2_NAME,
     qual: DOCTOR_QUAL,
-    image: "/Assets/Dr.Shabnam.jpeg",
+    image: "\dist\assets\Dr.Shabnam.jpeg",
     philosophy: "I believe in gentle, holistic healing that respects the unique physical and emotional blueprint of every patient."
   }
 ];

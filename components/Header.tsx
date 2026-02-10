@@ -58,7 +58,7 @@ const Header: React.FC = () => {
       <div className="container mx-auto px-6 flex justify-between items-center">
         <div className="flex flex-col shrink-0">
           <a href="#home" className="group">
-            <img src="/Assets/alsafa_logo.png" alt="Alsafa Homoeo Clinic" className="h-20 md:h-12 w-auto" />
+            <img src="dist\assets\alsafa_logo.png" alt="Alsafa Homoeo Clinic" className="h-20 md:h-12 w-auto" />
           </a>
         </div>
 
