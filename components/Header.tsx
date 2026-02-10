@@ -58,12 +58,7 @@ const Header: React.FC = () => {
       <div className="container mx-auto px-6 flex justify-between items-center">
         <div className="flex flex-col shrink-0">
           <a href="#home" className="group">
-            <span className="text-xl md:text-2xl font-bold text-emerald-800 tracking-tight block leading-none">
-              {CLINIC_NAME.split(' ')[0]}
-            </span>
-            <span className="text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-stone-500 font-bold block group-hover:text-emerald-700 transition-colors">
-              Homeopathic Clinic
-            </span>
+            <img src="/Assets/alsafa_logo.png" alt="Alsafa Homoeo Clinic" className="h-20 md:h-12 w-auto" />
           </a>
         </div>
 

@@ -32,13 +32,13 @@ export const DOCTORS = [
   {
     name: DOCTOR_1_NAME,
     qual: DOCTOR_QUAL,
-    image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=800",
+    image: "/Assets/Dr.shakir.jpeg",
     philosophy: "Focusing on deep-acting constitutional remedies to restore the vital force and achieve permanent recovery."
   },
   {
     name: DOCTOR_2_NAME,
     qual: DOCTOR_QUAL,
-    image: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&q=80&w=800",
+    image: "/Assets/Dr.Shabnam.jpeg",
     philosophy: "I believe in gentle, holistic healing that respects the unique physical and emotional blueprint of every patient."
   }
 ];
@@ -298,7 +298,7 @@ export const TESTIMONIALS: Testimonial[] = [
   },
   {
     id: "t3",
-    name: "Amit Sharma",
+    name: "Amruta Sharma",
     condition: "Gastritis",
     comment: "Excellent results for my chronic stomach issues. Highly recommended for anyone looking for holistic care.",
     rating: 5

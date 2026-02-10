@@ -9,10 +9,10 @@ const About: React.FC = () => {
       <div className="grid md:grid-cols-2 gap-16 items-center">
         <div className="relative">
           <div className="aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl relative z-10">
-            <img 
-              src="https://images.unsplash.com/photo-1559839734-2b71f1536783?auto=format&fit=crop&q=80&w=800" 
-              alt={`${DOCTOR_1_NAME} & ${DOCTOR_2_NAME}`} 
-              className="w-full h-full object-cover"
+            <img
+              src="/Assets/Dr.Sayyad.jpeg"
+              alt={`${DOCTOR_1_NAME} & ${DOCTOR_2_NAME}`}
+              className="w-full h-full object-contain object-center"
             />
           </div>
           {/* Decorative Elements */}
