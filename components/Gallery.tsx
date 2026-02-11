@@ -1,13 +1,15 @@
 
-import React from 'react';
+import React, { useState } from 'react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
+import { useAdmin } from '../contexts/AdminContext';
 
 const Gallery: React.FC = () => {
-  const images = [
-    { url: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=800', alt: 'Clinic Interior' },
-    { url: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800', alt: 'Consultation Room' },
-    { url: 'https://images.unsplash.com/photo-1631815589968-fdb09a223b1e?auto=format&fit=crop&q=80&w=800', alt: 'Medicine Preparation' },
-    { url: 'https://images.unsplash.com/photo-1666214280557-f1b5022eb634?auto=format&fit=crop&q=80&w=800', alt: 'Reception Area' }
-  ];
+  const { content } = useAdmin();
+  const [showAll, setShowAll] = useState(false);
+  
+  // Show only first 4 images by default
+  const displayedImages = showAll ? content.galleryImages : content.galleryImages.slice(0, 4);
+  const hasMoreImages = content.galleryImages.length > 4;
 
   return (
     <div className="container mx-auto px-6">
@@ -19,7 +21,7 @@ const Gallery: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-        {images.map((img, index) => (
+        {displayedImages.map((img, index) => (
           <div 
             key={index} 
             className="group relative aspect-square overflow-hidden rounded-2xl md:rounded-[2rem] shadow-md"
@@ -35,6 +37,32 @@ const Gallery: React.FC = () => {
           </div>
         ))}
       </div>
+
+      {hasMoreImages && (
+        <div className="text-center mt-12">
+          <button
+            onClick={() => setShowAll(!showAll)}
+            className="inline-flex items-center gap-2 bg-emerald-800 text-white px-8 py-4 rounded-2xl font-bold hover:bg-emerald-900 transition-all shadow-lg active:scale-95"
+          >
+            {showAll ? (
+              <>
+                <ChevronUp size={20} />
+                <span>View Less</span>
+              </>
+            ) : (
+              <>
+                <ChevronDown size={20} />
+                <span>View More</span>
+              </>
+            )}
+          </button>
+          {!showAll && (
+            <p className="text-stone-500 text-sm mt-4">
+              +{content.galleryImages.length - 4} more images
+            </p>
+          )}
+        </div>
+      )}
     </div>
   );
 };

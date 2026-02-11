@@ -2,8 +2,10 @@
 import React from 'react';
 import { Phone, MessageCircle, ShieldCheck, Star } from 'lucide-react';
 import { DOCTOR_1_NAME, DOCTOR_2_NAME, DOCTOR_QUAL, PHONE_NUMBER, WHATSAPP_NUMBER, WHATSAPP_MESSAGE } from '../constants';
+import { useAdmin } from '../contexts/AdminContext';
 
 const Hero: React.FC = () => {
+  const { content } = useAdmin();
   return (
     <div className="relative min-h-[90vh] md:min-h-screen flex items-center pt-24 pb-12 md:pb-24 overflow-hidden bg-[#faf9f6]">
       {/* Organic Background Elements */}
@@ -18,9 +20,9 @@ const Hero: React.FC = () => {
           
           {/* Left Side: Clinic Information */}
           <div className="space-y-6 md:space-y-8 text-center md:text-left animate-in fade-in slide-in-from-left duration-700">
-            <div className="inline-flex items-center gap-2 bg-emerald-50/80 backdrop-blur-sm text-emerald-900 px-4 py-2 rounded-full text-[11px] md:text-xs font-black tracking-widest uppercase border border-emerald-200/50 shadow-sm mx-auto md:mx-0">
-              <ShieldCheck size={14} className="text-emerald-700" />
-              <span>100% Natural & Holistic Care</span>
+          <div className="inline-flex items-center gap-2 bg-emerald-50/80 backdrop-blur-sm text-emerald-900 px-4 py-2 rounded-full text-[11px] md:text-xs font-black tracking-widest uppercase border border-emerald-200/50 shadow-sm mx-auto md:mx-0">
+            <ShieldCheck size={14} className="text-emerald-700" />
+            <span>100% Natural & Holistic Care</span>
             </div>
 
             <div className="space-y-4 md:space-y-6">
@@ -93,9 +95,9 @@ const Hero: React.FC = () => {
           <div className="relative flex justify-center md:justify-end mt-12 md:mt-0 animate-in fade-in slide-in-from-right duration-1000">
             <div className="relative w-full max-w-[340px] sm:max-w-[400px] lg:max-w-[500px]">
               <div className="relative z-10 aspect-[4/5] rounded-[4rem] lg:rounded-[6rem] overflow-hidden shadow-2xl border-[10px] md:border-[16px] border-white group">
-                <img 
-                  src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=1200" 
-                  alt="Professional Homeopathic Consultation" 
+                <img
+                  src={content.heroImage}
+                  alt="Professional Homeopathic Consultation"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
                 />
                 

@@ -7,9 +7,9 @@ const Testimonials: React.FC = () => {
   return (
     <div className="container mx-auto px-6">
       <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-        <h2 className="text-4xl md:text-5xl font-bold text-stone-900">Healing Stories</h2>
+        <h2 className="text-4xl md:text-5xl font-bold text-stone-900">Patient Testimonials</h2>
         <p className="text-xl text-stone-600 font-light">
-          Real experiences from patients who found relief through our gentle homeopathic approach.
+          Real experiences from our patients
         </p>
       </div>
 

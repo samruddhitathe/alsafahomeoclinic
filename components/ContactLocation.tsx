@@ -10,7 +10,7 @@ const ContactLocation: React.FC = () => {
         <div className="text-center mb-16 space-y-4">
           <h2 className="text-4xl md:text-5xl font-bold text-stone-900">Get in Touch</h2>
           <p className="text-xl text-stone-600 font-light max-w-2xl mx-auto">
-            We are here to help you on your healing journey. Book your appointment directly via Phone or WhatsApp for the fastest response.
+            We're here to help you on your journey to better health
           </p>
         </div>
 
@@ -47,7 +47,7 @@ const ContactLocation: React.FC = () => {
               </div>
               <div className="space-y-1">
                 <h4 className="font-bold text-2xl">Book Now</h4>
-                <p className="text-stone-400 text-sm font-light">Fastest way to get a slot</p>
+                <p className="text-stone-400 text-sm font-light">Fastest way to schedule</p>
               </div>
             </div>
 
@@ -59,7 +59,7 @@ const ContactLocation: React.FC = () => {
                 <div className="w-10 h-10 bg-stone-100 rounded-full flex items-center justify-center text-stone-900 group-hover/btn:bg-stone-200 transition-colors">
                   <Phone size={20} />
                 </div>
-                <span className="text-lg">Call for appointment</span>
+                <span className="text-lg">Call for Appointment</span>
               </a>
               
               <a 
@@ -71,13 +71,13 @@ const ContactLocation: React.FC = () => {
                 <div className="w-10 h-10 bg-emerald-500 rounded-full flex items-center justify-center text-white group-hover/btn:bg-emerald-400 transition-colors">
                   <MessageCircle size={20} />
                 </div>
-                <span className="text-lg">Inquiry on WhatsApp</span>
+                <span className="text-lg">Inquiry via WhatsApp</span>
               </a>
             </div>
 
             <div className="relative z-10 flex items-center gap-2 text-[10px] text-emerald-400 font-bold uppercase tracking-widest">
               <span className="inline-block w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
-              Doctors Online
+              Doctors Online Now
             </div>
           </div>
 

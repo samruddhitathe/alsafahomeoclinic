@@ -1,18 +1,20 @@
 
 import React from 'react';
 import { History, Timer, Stethoscope, User, ArrowDown } from 'lucide-react';
-import { CASE_STUDIES } from '../constants';
+import { useAdmin } from '../contexts/AdminContext';
 
 const HealingStories: React.FC = () => {
+  const { content } = useAdmin();
+  
   // Duplicate the case studies to create a seamless infinite scroll loop
-  const duplicatedStudies = [...CASE_STUDIES, ...CASE_STUDIES, ...CASE_STUDIES];
+  const duplicatedStudies = [...content.healingStories, ...content.healingStories, ...content.healingStories];
 
   return (
     <div className="container mx-auto px-6 overflow-hidden">
       <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-        <h2 className="text-4xl md:text-5xl font-bold text-stone-900">Real Healing Stories</h2>
+        <h2 className="text-4xl md:text-5xl font-bold text-stone-900">Healing Stories</h2>
         <p className="text-xl text-stone-600 font-light leading-relaxed">
-          A continuous look at authentic case studies illustrating the depth and methodology of professional homeopathic care.
+          Real cases, real results. Witness the transformative power of classical homeopathy.
         </p>
       </div>
 
@@ -20,10 +22,20 @@ const HealingStories: React.FC = () => {
       <div className="relative -mx-6 px-6">
         <div className="animate-marquee flex gap-8 py-10">
           {duplicatedStudies.map((study, index) => (
-            <div 
-              key={`${study.id}-${index}`} 
+            <div
+              key={`${study.id}-${index}`}
               className="flex flex-col space-y-3 w-[320px] md:w-[400px] flex-shrink-0 group"
             >
+              {/* Story Image */}
+              <div className="relative w-full h-48 rounded-[2rem] overflow-hidden shadow-md">
+                <img
+                  src={study.image}
+                  alt={study.condition}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              </div>
+
               {/* Primary Card: Clinical Story */}
               <div className="bg-white p-8 rounded-[2.5rem] border border-stone-100 shadow-sm flex flex-col relative z-10 transition-all duration-500 group-hover:shadow-xl group-hover:border-emerald-100 group-hover:-translate-y-1">
                 <div className="flex justify-between items-start mb-6">
@@ -62,7 +74,7 @@ const HealingStories: React.FC = () => {
                   <span>Clinical Result</span>
                   <div className="flex items-center gap-2">
                      <span className="w-12 h-1 bg-stone-100 rounded-full overflow-hidden">
-                        <span 
+                        <span
                           className="block h-full bg-emerald-500 transition-all duration-1000"
                           style={{ width: `${study.improvementLevel}%` }}
                         ></span>
@@ -103,13 +115,12 @@ const HealingStories: React.FC = () => {
 
       <div className="mt-12 text-center space-y-6">
         <p className="text-[10px] text-stone-400 font-bold uppercase tracking-[0.3em] animate-pulse">
-          Hover over any card to pause and read carefully
+          Hover to pause
         </p>
         
         <div className="py-8 border-t border-stone-100">
           <p className="text-stone-400 text-[11px] font-medium tracking-wide uppercase max-w-xl mx-auto">
-            These narratives are documented clinical outcomes. 
-            Homeopathy addresses the individual blueprint, ensuring a unique path to recovery for every patient.
+            Individual results may vary. Consult a qualified homeopathic practitioner for personalized treatment.
           </p>
         </div>
       </div>

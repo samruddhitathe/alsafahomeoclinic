@@ -18,12 +18,12 @@ const Philosophy: React.FC = () => {
           <div className="relative pt-4">
             <Quote className="absolute -top-2 -left-4 w-10 h-10 text-emerald-50" />
             <p className="relative z-10 text-xl text-stone-700 font-serif italic leading-snug">
-              "My philosophy is simple: I don't treat the name of the disease; I treat the person who is suffering."
+              "True healing comes from understanding the individual, not just the disease."
             </p>
           </div>
 
           <p className="text-base text-stone-600 font-light leading-relaxed">
-            Healing is the restoration of balance. In my practice, we spend hours listening—not just to symptoms, but to your story. By understanding your unique triggers, we find the remedy that resonates with your vital force.
+            I believe in treating each patient as a unique individual. My practice is rooted in classical homeopathy, where I take time to understand not just your symptoms, but your complete health picture—physical, mental, and emotional.
           </p>
 
           <div className="pt-2 flex items-center gap-3">

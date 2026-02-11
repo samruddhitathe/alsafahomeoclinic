@@ -11,9 +11,9 @@ const ExperienceTimeline: React.FC = () => {
     <div className="container mx-auto px-6 overflow-hidden">
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
         <div className="max-w-2xl space-y-2">
-          <h2 className="text-3xl md:text-4xl font-bold text-stone-900 leading-tight">A Journey of Healing</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-stone-900 leading-tight">A Journey of Healing & Growth</h2>
           <p className="text-lg text-stone-600 font-light leading-relaxed">
-            Over 20 years of clinical practice narrating a story of persistent growth and thousands of recovered patients.
+            Decades of dedication to classical homeopathy and patient care
           </p>
         </div>
         
@@ -21,12 +21,12 @@ const ExperienceTimeline: React.FC = () => {
         <div className="hidden lg:flex items-center gap-6 bg-stone-900 text-white px-6 py-4 rounded-3xl shadow-lg shrink-0">
           <div className="text-left">
             <p className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Experience</p>
-            <p className="text-lg font-bold">20+ Years</p>
+            <p className="text-lg font-bold">30+ Years</p>
           </div>
           <div className="h-8 w-px bg-stone-700"></div>
           <div className="text-left">
             <p className="text-[10px] uppercase tracking-widest text-stone-400 font-bold">Impact</p>
-            <p className="text-lg font-bold">30k+ Lives</p>
+            <p className="text-lg font-bold">30,000+ Lives</p>
           </div>
         </div>
       </div>
@@ -75,13 +75,13 @@ const ExperienceTimeline: React.FC = () => {
       {/* Mobile-only Summary and Scroll Indicator */}
       <div className="lg:hidden mt-8 flex flex-col items-center gap-4">
         <div className="flex items-center gap-6 bg-stone-900 text-white px-6 py-4 rounded-[2rem] shadow-xl">
-           <p className="text-sm font-bold">20+ Years</p>
-           <div className="h-6 w-px bg-stone-700"></div>
-           <p className="text-sm font-bold">30,000+ Lives Touched</p>
-        </div>
-        <p className="text-[10px] text-stone-400 font-bold uppercase tracking-[0.2em]">
-          Flowing journey • Hover to pause
-        </p>
+          <p className="text-sm font-bold">30+ Years</p>
+          <div className="h-6 w-px bg-stone-700"></div>
+          <p className="text-sm font-bold">30,000+ Lives Touched</p>
+       </div>
+       <p className="text-[10px] text-stone-400 font-bold uppercase tracking-[0.2em]">
+         A flowing journey of healing
+       </p>
       </div>
     </div>
   );

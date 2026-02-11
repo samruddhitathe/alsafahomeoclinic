@@ -1,12 +1,18 @@
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Phone } from 'lucide-react';
+import { Menu, X, Phone, Shield } from 'lucide-react';
 import { CLINIC_NAME, PHONE_NUMBER } from '../constants';
+import { useAdmin } from '../contexts/AdminContext';
+import AdminLogin from './AdminLogin';
+import AdminPanel from './AdminPanel';
+import GoogleTranslate from './GoogleTranslate';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [showAdminLogin, setShowAdminLogin] = useState(false);
+  const { isAdmin } = useAdmin();
 
   const navLinks = [
     { name: 'Home', href: '#home', id: 'home' },
@@ -80,8 +86,26 @@ const Header: React.FC = () => {
               )}
             </a>
           ))}
-          <div className="pl-2">
-            <a 
+          <div className="flex items-center gap-2 pl-2">
+            <GoogleTranslate />
+            {isAdmin ? (
+              <a
+                href="#admin-dashboard"
+                className="flex items-center gap-2 bg-purple-100 text-purple-700 px-4 py-2.5 rounded-full hover:bg-purple-200 transition-all text-xs font-bold"
+              >
+                <Shield size={14} />
+                <span>Dashboard</span>
+              </a>
+            ) : (
+              <button
+                onClick={() => setShowAdminLogin(true)}
+                className="p-2.5 bg-stone-100 text-stone-400 rounded-full hover:bg-stone-200 transition-all"
+                title="Admin Login"
+              >
+                <Shield size={14} />
+              </button>
+            )}
+            <a
               href={`tel:${PHONE_NUMBER}`}
               className="flex items-center gap-2 bg-emerald-800 text-white px-5 py-2.5 rounded-full hover:bg-emerald-900 transition-all shadow-[0_10px_20px_-5px_rgba(6,95,70,0.3)] active:scale-95 text-xs font-bold"
             >
@@ -118,7 +142,20 @@ const Header: React.FC = () => {
             </a>
           ))}
           <div className="pt-6">
-            <a 
+            {isAdmin && (
+              <a
+                href="#admin-dashboard"
+                onClick={() => setIsMenuOpen(false)}
+                className="bg-purple-100 text-purple-700 py-4 rounded-2xl font-bold text-lg flex justify-center items-center gap-3 active:scale-95 transition-transform mb-3"
+              >
+                <Shield size={22} />
+                Admin Dashboard
+              </a>
+            )}
+            <div className="mb-3">
+              <GoogleTranslate />
+            </div>
+            <a
               href={`tel:${PHONE_NUMBER}`}
               className="bg-emerald-800 text-white py-4 rounded-2xl font-bold shadow-xl text-lg flex justify-center items-center gap-3 active:scale-95 transition-transform"
               onClick={() => setIsMenuOpen(false)}
@@ -129,6 +166,8 @@ const Header: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {showAdminLogin && <AdminLogin onClose={() => setShowAdminLogin(false)} />}
     </header>
   );
 };

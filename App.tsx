@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import DoctorProfile from './components/DoctorProfile';
@@ -12,8 +12,42 @@ import Gallery from './components/Gallery';
 import ContactLocation from './components/ContactLocation';
 import Footer from './components/Footer';
 import StickyCTA from './components/StickyCTA';
+import AdminDashboard from './components/AdminDashboard';
+import { AdminProvider, useAdmin } from './contexts/AdminContext';
 
-const App: React.FC = () => {
+const AppContent: React.FC = () => {
+  const { isAdmin } = useAdmin();
+  const [showDashboard, setShowDashboard] = useState(false);
+
+  useEffect(() => {
+    // Check URL hash for admin dashboard
+    const hash = window.location.hash;
+    if (hash === '#admin-dashboard' && isAdmin) {
+      setShowDashboard(true);
+    } else {
+      setShowDashboard(false);
+    }
+
+    // Listen for hash changes
+    const handleHashChange = () => {
+      const newHash = window.location.hash;
+      if (newHash === '#admin-dashboard' && isAdmin) {
+        setShowDashboard(true);
+      } else {
+        setShowDashboard(false);
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, [isAdmin]);
+
+  // Show admin dashboard if logged in and hash is #admin-dashboard
+  if (showDashboard && isAdmin) {
+    return <AdminDashboard />;
+  }
+
+  // Show main website
   return (
     <div className="min-h-screen flex flex-col relative">
       <Header />
@@ -66,6 +100,14 @@ const App: React.FC = () => {
       {/* Sticky Mobile/Desktop CTAs */}
       <StickyCTA />
     </div>
+  );
+};
+
+const App: React.FC = () => {
+  return (
+    <AdminProvider>
+      <AppContent />
+    </AdminProvider>
   );
 };
 

@@ -24,7 +24,7 @@ const WhyHomeopathyAccordion: React.FC = () => {
             Why Choose Homeopathy?
           </h2>
           <p className="text-stone-500 text-sm font-light max-w-2xl mx-auto italic">
-            "Treating the person, not just the disease. Explore our approach through common patient inquiries."
+            "Natural healing that treats the whole person, not just symptoms"
           </p>
         </div>
 
@@ -71,7 +71,7 @@ const WhyHomeopathyAccordion: React.FC = () => {
           <div className="space-y-6">
             <div className="flex items-center gap-2 mb-2">
               <ClipboardCheck size={18} className="text-emerald-700" />
-              <span className="text-xs font-black uppercase tracking-widest text-stone-400">Select an Inquiry</span>
+              <span className="text-xs font-black uppercase tracking-widest text-stone-400">Select Your Inquiry</span>
             </div>
             <div className="grid grid-cols-2 gap-3">
               {FAQ_DATA.map((item, index) => (
@@ -100,7 +100,7 @@ const WhyHomeopathyAccordion: React.FC = () => {
             </div>
             
             <p className="text-[10px] text-stone-400 font-bold uppercase tracking-[0.2em] pt-2">
-              Showing {activeIndex + 1} of {FAQ_DATA.length} patient perspectives
+              Showing {activeIndex + 1} of {FAQ_DATA.length} Patient Perspectives
             </p>
           </div>
 
@@ -114,7 +114,7 @@ const WhyHomeopathyAccordion: React.FC = () => {
                 <div className="space-y-4">
                   <div className="inline-flex items-center gap-2 text-emerald-400 font-black text-[10px] uppercase tracking-widest">
                     <MessageCircle size={14} />
-                    <span>The Clinical Answer</span>
+                    <span>Clinical Answer</span>
                   </div>
                   <h3 className="text-2xl font-bold text-white leading-tight">
                     {FAQ_DATA[activeIndex].question}
@@ -124,7 +124,7 @@ const WhyHomeopathyAccordion: React.FC = () => {
                 <div className="bg-white/5 backdrop-blur-md p-8 rounded-3xl border border-white/10">
                   <div className="flex items-center gap-3 mb-4">
                     <ShieldCheck size={20} className="text-emerald-400" />
-                    <span className="font-bold text-emerald-100 text-xs uppercase tracking-widest">Safe & Effective Path</span>
+                    <span className="font-bold text-emerald-100 text-xs uppercase tracking-widest">Safe & Natural Path</span>
                   </div>
                   <p className="text-lg text-stone-300 font-light leading-relaxed italic">
                     "{FAQ_DATA[activeIndex].answer}"
@@ -141,7 +141,7 @@ const WhyHomeopathyAccordion: React.FC = () => {
                       </div>
                    </div>
                    <div className="text-[10px] text-emerald-500/60 font-black uppercase tracking-widest">
-                      Alsafa Methodology
+                      Classical Methodology
                    </div>
                 </div>
               </div>
@@ -156,7 +156,7 @@ const WhyHomeopathyAccordion: React.FC = () => {
         {/* Footnote */}
         <div className="mt-12 text-center">
           <p className="text-stone-400 text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] opacity-50">
-            Consultation required for personalized treatment plans
+            Individual consultation required for personalized treatment
           </p>
         </div>
       </div>

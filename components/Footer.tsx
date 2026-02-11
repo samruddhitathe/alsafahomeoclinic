@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
               {CLINIC_NAME.split(' ')[0]}<span className="font-normal opacity-70">{CLINIC_NAME.split(' ').slice(1).join(' ')}</span>
             </h3>
             <p className="max-w-md text-stone-400 leading-relaxed font-light">
-              Providing personalized homeopathic healthcare that focuses on treating the root cause. Experience gentle healing with over 20 years of clinical expertise.
+              Dedicated to providing compassionate, holistic homeopathic care for you and your family. Experience the gentle power of natural healing.
             </p>
           </div>
 
@@ -43,12 +43,12 @@ const Footer: React.FC = () => {
 
         <div className="pt-10 border-t border-stone-800 text-center space-y-4">
           <p className="text-xs text-stone-500 max-w-2xl mx-auto italic leading-loose">
-            Medical Disclaimer: Homeopathy works on individual constitution. Results and healing time may vary from patient to patient. Information on this website is for educational purposes only and not a substitute for professional medical advice.
+            Disclaimer: Homeopathic treatment is individualized. Results may vary. Always consult a qualified practitioner for medical advice.
           </p>
           <div className="flex flex-col md:flex-row justify-center items-center gap-4 text-sm text-stone-500">
-            <p>&copy; {new Date().getFullYear()} {CLINIC_NAME}. All Rights Reserved.</p>
+            <p>&copy; {new Date().getFullYear()} {CLINIC_NAME}. All rights reserved.</p>
             <span className="hidden md:block opacity-20">|</span>
-            <p>Designed &amp; Developed by miss. Samruddhi C. Tathe-Deshmukh</p>
+            <p>Designed by miss. Samruddhi C. Tathe-Deshmukh</p>
           </div>
         </div>
       </div>
