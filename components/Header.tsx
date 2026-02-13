@@ -142,7 +142,7 @@ const Header: React.FC = () => {
             </a>
           ))}
           <div className="pt-6">
-            {isAdmin && (
+            {isAdmin ? (
               <a
                 href="#admin-dashboard"
                 onClick={() => setIsMenuOpen(false)}
@@ -151,6 +151,17 @@ const Header: React.FC = () => {
                 <Shield size={22} />
                 Admin Dashboard
               </a>
+            ) : (
+              <button
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  setShowAdminLogin(true);
+                }}
+                className="w-full bg-stone-100 text-stone-600 py-4 rounded-2xl font-bold text-lg flex justify-center items-center gap-3 active:scale-95 transition-transform mb-3"
+              >
+                <Shield size={22} />
+                Admin Login
+              </button>
             )}
             <div className="mb-3">
               <GoogleTranslate />
