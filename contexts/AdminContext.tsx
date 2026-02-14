@@ -21,20 +21,22 @@ interface AdminContent {
 
 interface AdminContextType {
   isAdmin: boolean;
-  login: (password: string) => boolean;
+  isLoading: boolean;
+  login: (password: string) => Promise<boolean>;
   logout: () => void;
   content: AdminContent;
-  updateHeroImage: (url: string) => void;
-  updateHealingStory: (id: string, updates: Partial<AdminContent['healingStories'][0]>) => void;
+  updateHeroImage: (url: string) => Promise<void>;
+  updateHealingStory: (id: string, updates: Partial<AdminContent['healingStories'][0]>) => Promise<void>;
   addHealingStory: (story: AdminContent['healingStories'][0]) => void;
   removeHealingStory: (id: string) => void;
-  addGalleryImage: (url: string, alt: string) => void;
-  removeGalleryImage: (index: number) => void;
+  addGalleryImage: (url: string, alt: string) => Promise<void>;
+  removeGalleryImage: (index: number) => Promise<void>;
 }
 
 const AdminContext = createContext<AdminContextType | undefined>(undefined);
 
 const ADMIN_PASSWORD = 'admin123'; // In production, use proper authentication
+const API_BASE_URL = 'http://localhost:3001/api';
 
 const defaultContent: AdminContent = {
   heroImage: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=1200',
@@ -87,17 +89,35 @@ const defaultContent: AdminContent = {
 
 export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [content, setContent] = useState<AdminContent>(defaultContent);
 
+  // Fetch content from API on mount
   useEffect(() => {
-    const savedContent = localStorage.getItem('adminContent');
-    if (savedContent) {
+    const fetchContent = async () => {
       try {
-        setContent(JSON.parse(savedContent));
-      } catch (e) {
-        console.error('Failed to parse saved content');
+        const response = await fetch(`${API_BASE_URL}/content`);
+        if (response.ok) {
+          const data = await response.json();
+          setContent(data);
+        }
+      } catch (error) {
+        console.log('Using default content - backend not available');
+        // Fall back to localStorage if API is not available
+        const savedContent = localStorage.getItem('adminContent');
+        if (savedContent) {
+          try {
+            setContent(JSON.parse(savedContent));
+          } catch (e) {
+            console.error('Failed to parse saved content');
+          }
+        }
+      } finally {
+        setIsLoading(false);
       }
-    }
+    };
+
+    fetchContent();
 
     const adminStatus = sessionStorage.getItem('isAdmin');
     if (adminStatus === 'true') {
@@ -105,13 +125,29 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   }, []);
 
-  const login = (password: string): boolean => {
-    if (password === ADMIN_PASSWORD) {
-      setIsAdmin(true);
-      sessionStorage.setItem('isAdmin', 'true');
-      return true;
+  const login = async (password: string): Promise<boolean> => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password })
+      });
+      
+      if (response.ok) {
+        setIsAdmin(true);
+        sessionStorage.setItem('isAdmin', 'true');
+        return true;
+      }
+      return false;
+    } catch (error) {
+      // Fall back to local check if API is not available
+      if (password === ADMIN_PASSWORD) {
+        setIsAdmin(true);
+        sessionStorage.setItem('isAdmin', 'true');
+        return true;
+      }
+      return false;
     }
-    return false;
   };
 
   const logout = () => {
@@ -119,22 +155,55 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     sessionStorage.removeItem('isAdmin');
   };
 
-  const saveContent = (newContent: AdminContent) => {
-    setContent(newContent);
-    localStorage.setItem('adminContent', JSON.stringify(newContent));
+  const updateHeroImage = async (url: string) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/hero`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ imageUrl: url, password: ADMIN_PASSWORD })
+      });
+      
+      if (response.ok) {
+        const newContent = { ...content, heroImage: url };
+        setContent(newContent);
+      }
+    } catch (error) {
+      console.error('Failed to update hero image on server:', error);
+      // Update locally anyway
+      const newContent = { ...content, heroImage: url };
+      setContent(newContent);
+      localStorage.setItem('adminContent', JSON.stringify(newContent));
+    }
   };
 
-  const updateHeroImage = (url: string) => {
-    const newContent = { ...content, heroImage: url };
-    saveContent(newContent);
-  };
-
-  const updateHealingStory = (id: string, updates: Partial<AdminContent['healingStories'][0]>) => {
-    const newStories = content.healingStories.map(story =>
-      story.id === id ? { ...story, ...updates } : story
-    );
-    const newContent = { ...content, healingStories: newStories };
-    saveContent(newContent);
+  const updateHealingStory = async (id: string, updates: Partial<AdminContent['healingStories'][0]>) => {
+    const imageUrl = updates.image;
+    if (!imageUrl) return;
+    
+    try {
+      const response = await fetch(`${API_BASE_URL}/story/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ imageUrl, password: ADMIN_PASSWORD })
+      });
+      
+      if (response.ok) {
+        const newStories = content.healingStories.map(story =>
+          story.id === id ? { ...story, ...updates } : story
+        );
+        const newContent = { ...content, healingStories: newStories };
+        setContent(newContent);
+      }
+    } catch (error) {
+      console.error('Failed to update story on server:', error);
+      // Update locally anyway
+      const newStories = content.healingStories.map(story =>
+        story.id === id ? { ...story, ...updates } : story
+      );
+      const newContent = { ...content, healingStories: newStories };
+      setContent(newContent);
+      localStorage.setItem('adminContent', JSON.stringify(newContent));
+    }
   };
 
   const addHealingStory = (story: AdminContent['healingStories'][0]) => {
@@ -142,33 +211,70 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       ...content,
       healingStories: [...content.healingStories, story]
     };
-    saveContent(newContent);
+    setContent(newContent);
+    localStorage.setItem('adminContent', JSON.stringify(newContent));
   };
 
   const removeHealingStory = (id: string) => {
     const newStories = content.healingStories.filter(story => story.id !== id);
     const newContent = { ...content, healingStories: newStories };
-    saveContent(newContent);
+    setContent(newContent);
+    localStorage.setItem('adminContent', JSON.stringify(newContent));
   };
 
-  const addGalleryImage = (url: string, alt: string) => {
-    const newContent = {
-      ...content,
-      galleryImages: [...content.galleryImages, { url, alt }]
-    };
-    saveContent(newContent);
+  const addGalleryImage = async (url: string, alt: string) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/gallery`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url, alt, password: ADMIN_PASSWORD })
+      });
+      
+      if (response.ok) {
+        const newContent = {
+          ...content,
+          galleryImages: [...content.galleryImages, { url, alt }]
+        };
+        setContent(newContent);
+      }
+    } catch (error) {
+      console.error('Failed to add gallery image on server:', error);
+      // Update locally anyway
+      const newContent = {
+        ...content,
+        galleryImages: [...content.galleryImages, { url, alt }]
+      };
+      setContent(newContent);
+      localStorage.setItem('adminContent', JSON.stringify(newContent));
+    }
   };
 
-  const removeGalleryImage = (index: number) => {
-    const newImages = content.galleryImages.filter((_, i) => i !== index);
-    const newContent = { ...content, galleryImages: newImages };
-    saveContent(newContent);
+  const removeGalleryImage = async (index: number) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/gallery/${index}?password=${ADMIN_PASSWORD}`, {
+        method: 'DELETE'
+      });
+      
+      if (response.ok) {
+        const newImages = content.galleryImages.filter((_, i) => i !== index);
+        const newContent = { ...content, galleryImages: newImages };
+        setContent(newContent);
+      }
+    } catch (error) {
+      console.error('Failed to remove gallery image on server:', error);
+      // Update locally anyway
+      const newImages = content.galleryImages.filter((_, i) => i !== index);
+      const newContent = { ...content, galleryImages: newImages };
+      setContent(newContent);
+      localStorage.setItem('adminContent', JSON.stringify(newContent));
+    }
   };
 
   return (
     <AdminContext.Provider
       value={{
         isAdmin,
+        isLoading,
         login,
         logout,
         content,
